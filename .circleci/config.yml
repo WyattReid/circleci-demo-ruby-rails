@@ -62,9 +62,6 @@ jobs:
       - aws-ecr/build-and-push-image: 
           dockerfile: Dockerfile
           path: .
-          profile-name: wyattcc
-          repo: wyattcc
-          tag: latest 
       
 workflows:
   version: 2
