@@ -63,6 +63,7 @@ jobs:
           dockerfile: Dockerfile
           path: .
           repo: wyattcc-ecr
+          region: us-east-2
       
 workflows:
   version: 2
