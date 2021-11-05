@@ -66,7 +66,7 @@ jobs:
           repo: wyattcc-ecr
       - aws-ecs/run-task:
           cluster: wyattcc-ecs-cluster
-          security-group-ids: $SECURITY_GROUP_IDS
+          security-group-ids: sg-0c44d8f579e01f608
           subnet-ids: subnet-0165a926c7aae26d3, subnet-0dd0d46c72872c5db'
           task-definition: wyattcc_task
       
