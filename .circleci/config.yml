@@ -69,8 +69,6 @@ jobs:
           security-group-ids: $SECURITY_GROUP_IDS
           subnet-ids: '$SUBNET_ONE, $SUBNET_TWO'
           task-definition: wyattcc_task
-          requires:
-            - aws-ecr/build-and-push-image
       
 workflows:
   version: 2
