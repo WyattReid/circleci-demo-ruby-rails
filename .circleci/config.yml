@@ -65,6 +65,7 @@ jobs:
           path: .
           repo: wyattcc-ecr
       - aws-ecs/run-task:
+          assign-public-ip: enabled
           cluster: wyattcc-ecs-cluster
           security-group-ids: sg-0789d4163c51a28c2
           subnet-ids: 'subnet-0165a926c7aae26d3, subnet-0dd0d46c72872c5db'
