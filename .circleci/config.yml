@@ -55,7 +55,6 @@ jobs:
       - checkout
       - ruby/install-deps
       # Store bundle cache
-      - echo "hello"
       
 workflows:
   version: 2
