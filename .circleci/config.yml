@@ -58,8 +58,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
-      - setup_remote_docker:
-          version: 19.03.13
+      - setup_remote_docker
       - aws-ecr/build-and-push-image: 
           dockerfile: Dockerfile
           path: .
