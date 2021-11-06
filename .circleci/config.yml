@@ -81,6 +81,6 @@ workflows:
           cluster-name: wyattcc-ecs-cluster
           container-image-name-updates: 'container=wyattcc,tag=ci-${CIRCLE_SHA1}'
           family: wyattcc_task
-          service-name: wyattcc-ecs-service
+          service-name: wyattcc-service
           requires:
             - push_to_ecr
