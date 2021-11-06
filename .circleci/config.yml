@@ -114,3 +114,4 @@ workflows:
           service-name: wyattcc-nginx-service
           requires:
             - Deploy Rails
+            - Push NGINX to ECR
