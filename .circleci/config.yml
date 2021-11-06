@@ -80,6 +80,6 @@ workflows:
       - aws-ecs/deploy-service-update:
           cluster-name: 'wyattcc-ecs-cluster'
           container-image-name-updates: 'container=wyattcc-ecs-service,tag=${CIRCLE_SHA1}'
-          family: 'wyattcc-ecs-service'
+          family: 'wyattcc-task'
           requires:
             - push_to_ecr
