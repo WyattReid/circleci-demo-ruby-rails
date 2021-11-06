@@ -17,9 +17,5 @@ RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
-RUN docker-compose build
-RUN docker-compose up
-RUN docker-compose run web bundle exec rails db:migrate:reset
-
 # Start the main process.
 CMD ["rails", "server", "-b", "0.0.0.0"]
