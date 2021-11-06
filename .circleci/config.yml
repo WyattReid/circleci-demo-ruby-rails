@@ -90,7 +90,7 @@ workflows:
       - test:
           requires:
             - build
-      - push_to_ecr:
+      - push_rails_to_ecr:
           requires:
             - test
       - aws-ecs/deploy-service-update:
