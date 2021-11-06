@@ -64,7 +64,7 @@ jobs:
           dockerfile: Dockerfile
           path: .
           repo: wyattcc-ecr
-          tag: 'ci-${CIRCLE_SHA1}, latest'
+          tag: ci-${CIRCLE_SHA1}, latest
       - aws-ecs/deploy-service-update:
           cluster-name: 'wyattcc-ecs-cluster'
           container-image-name-updates: 'container=wyattcc-ecs-service,tag=${CIRCLE_SHA1}'
