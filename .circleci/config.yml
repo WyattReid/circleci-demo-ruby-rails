@@ -50,6 +50,7 @@ jobs:
       - ruby/rspec-test
       - ruby/rubocop-check
   push_rails_to_ecr:
+    name: Push Rails to ECR
     docker:
       - image: cimg/ruby:2.7-node
     steps:
@@ -66,6 +67,7 @@ jobs:
           repo: 'wyatt-cc-rails-repo'
           tag: 'rails,latest,ra-${CIRCLE_SHA1}'
   push_nginx_to_ecr:
+    name: Push NGINX to ECR
     docker:
       - image: cimg/ruby:2.7-node
     steps:
