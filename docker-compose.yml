@@ -18,11 +18,18 @@ services:
       - db
     env_file:
       - app.env
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:3000"]
+        interval: 5s
+        timeout: 10s
+        retries: 5
   nginx:
     build:
       context: .
       dockerfile: ./nginx.Dockerfile
-    depends_on:
-      - web
     ports:
       - 80:80
+    depends_on:
+      web: 
+        condition:
+          service_healthy
