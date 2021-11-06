@@ -60,17 +60,18 @@ jobs:
           pkg-manager: yarn
           cache-key: "yarn.lock"
       - setup_remote_docker
-      - aws-ecr/build-and-push-image: 
-          dockerfile: Dockerfile
-          path: .
-          repo: wyattcc-ecr
-          tag: ci-${CIRCLE_SHA1}, latest
-      - aws-ecs/deploy-service-update:
-          cluster-name: 'wyattcc-ecs-cluster'
-          container-image-name-updates: 'container=wyattcc-ecs-service,tag=${CIRCLE_SHA1}'
-          family: 'wyattcc-ecs-service'
-          requires:
-            - aws-ecr/build-and-push-image
+      jobs: 
+        - aws-ecr/build-and-push-image: 
+            dockerfile: Dockerfile
+            path: .
+            repo: wyattcc-ecr
+            tag: ci-${CIRCLE_SHA1}, latest
+        - aws-ecs/deploy-service-update:
+            cluster-name: 'wyattcc-ecs-cluster'
+            container-image-name-updates: 'container=wyattcc-ecs-service,tag=${CIRCLE_SHA1}'
+            family: 'wyattcc-ecs-service'
+            requires:
+              - aws-ecr/build-and-push-image
       
 workflows:
   version: 2
