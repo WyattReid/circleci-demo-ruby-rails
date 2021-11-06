@@ -93,6 +93,9 @@ workflows:
       - push_rails_to_ecr:
           requires:
             - test
+      - push_nginx_to_ecr:
+          requires:
+            - test
       - aws-ecs/deploy-service-update:
           name: Deploy Rails
           cluster-name: wyattcc-ecs-cluster
