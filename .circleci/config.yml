@@ -100,7 +100,7 @@ workflows:
           family: wyattcc_task
           service-name: wyattcc-rails-service
           requires:
-            - push_to_ecr
+            - push_rails_to_ecr
       - aws-ecs/deploy-service-update:
           name: Deploy NGINX
           cluster-name: wyattcc-ecs-cluster
