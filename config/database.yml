@@ -60,8 +60,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  user: <%= ENV.fetch("PGUSER") %>
-  user: <%= ENV.fetch("PGPASSWORD") %>
+  user: postgreswr
+  password: postgres3000
   database: rails_blog_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
