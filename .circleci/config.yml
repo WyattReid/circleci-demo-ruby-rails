@@ -63,8 +63,8 @@ jobs:
       - aws-ecr/build-and-push-image: 
           dockerfile: Dockerfile
           path: .
-          repo: wyattcc-ecr
-          tag: ci-${CIRCLE_SHA1}, latest
+          repo: 'wyattcc-ecr'
+          tag: 'ci-${CIRCLE_SHA1}, latest'
       
 workflows:
   version: 2
