@@ -79,7 +79,7 @@ workflows:
             - test
       - aws-ecs/deploy-service-update:
           cluster-name: wyattcc-ecs-cluster
-          container-image-name-updates: 'container=wyattcc,tag=ci-${CIRCLE_SHA1}'
+          container-image-name-updates: 'container=wyattcc,tag=latest'
           family: wyattcc_task
           service-name: wyattcc-service
           requires:
