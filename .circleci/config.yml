@@ -102,7 +102,7 @@ workflows:
           name: Deploy Rails
           cluster-name: wyattcc-ecs-cluster
           container-image-name-updates: 'container=wyatt-cc-rails,tag=latest'
-          family: wyattcc_task
+          family: wyattcc_rails_task
           service-name: wyatt-cc-rails-service
           requires:
             - Push Rails to ECR
@@ -110,7 +110,7 @@ workflows:
           name: Deploy NGINX
           cluster-name: wyattcc-ecs-cluster
           container-image-name-updates: 'container=wyatt-cc-nginx,tag=latest'
-          family: wyattcc_task
+          family: wyattcc_nginx_task
           service-name: wyatt-cc-nginx-service
           requires:
             - Deploy Rails
