@@ -82,4 +82,4 @@ workflows:
           container-image-name-updates: 'container=wyattcc-ecs-service,tag=${CIRCLE_SHA1}'
           family: 'wyattcc-ecs-service'
           requires:
-            - aws-ecr/build-and-push-image
+            - push_to_ecr
