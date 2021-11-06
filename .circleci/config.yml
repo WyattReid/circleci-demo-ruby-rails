@@ -64,7 +64,7 @@ jobs:
           dockerfile: Dockerfile
           path: .
           repo: 'wyattcc-ecr'
-          tag: 'ci-${CIRCLE_SHA1}'
+          tag: 'latest,ci-${CIRCLE_SHA1}'
       
 workflows:
   version: 2
