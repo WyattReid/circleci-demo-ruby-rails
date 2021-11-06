@@ -49,7 +49,7 @@ jobs:
       # Run rspec in parallel
       - ruby/rspec-test
       - ruby/rubocop-check
-  deploy:
+  push_to_ecr:
     docker:
       - image: cimg/ruby:2.7-node
     steps:
@@ -60,18 +60,11 @@ jobs:
           pkg-manager: yarn
           cache-key: "yarn.lock"
       - setup_remote_docker
-      jobs: 
-        - aws-ecr/build-and-push-image: 
-            dockerfile: Dockerfile
-            path: .
-            repo: wyattcc-ecr
-            tag: ci-${CIRCLE_SHA1}, latest
-        - aws-ecs/deploy-service-update:
-            cluster-name: 'wyattcc-ecs-cluster'
-            container-image-name-updates: 'container=wyattcc-ecs-service,tag=${CIRCLE_SHA1}'
-            family: 'wyattcc-ecs-service'
-            requires:
-              - aws-ecr/build-and-push-image
+      - aws-ecr/build-and-push-image: 
+          dockerfile: Dockerfile
+          path: .
+          repo: wyattcc-ecr
+          tag: ci-${CIRCLE_SHA1}, latest
       
 workflows:
   version: 2
@@ -81,6 +74,12 @@ workflows:
       - test:
           requires:
             - build
-      - deploy:
+      - push_to_ecr:
           requires:
             - test
+      - aws-ecs/deploy-service-update:
+          cluster-name: 'wyattcc-ecs-cluster'
+          container-image-name-updates: 'container=wyattcc-ecs-service,tag=${CIRCLE_SHA1}'
+          family: 'wyattcc-ecs-service'
+          requires:
+            - aws-ecr/build-and-push-image
