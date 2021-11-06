@@ -49,7 +49,7 @@ jobs:
       # Run rspec in parallel
       - ruby/rspec-test
       - ruby/rubocop-check
-  push_to_ecr:
+  push_rails_to_ecr:
     docker:
       - image: cimg/ruby:2.7-node
     steps:
@@ -61,10 +61,26 @@ jobs:
           cache-key: "yarn.lock"
       - setup_remote_docker
       - aws-ecr/build-and-push-image: 
-          dockerfile: Dockerfile
+          dockerfile: rails.Dockerfile
           path: .
-          repo: 'wyattcc-ecr'
-          tag: 'latest,ci-${CIRCLE_SHA1}'
+          repo: 'wyatt-cc-rails-repo'
+          tag: 'rails,latest,ra-${CIRCLE_SHA1}'
+  push_nginx_to_ecr:
+    docker:
+      - image: cimg/ruby:2.7-node
+    steps:
+      - checkout
+      - ruby/install-deps
+      # Store bundle cache
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+      - setup_remote_docker
+      - aws-ecr/build-and-push-image: 
+          dockerfile: nginx.Dockerfile
+          path: .
+          repo: 'wyatt-cc-nginx-repo'
+          tag: 'nginx,latest,ng-${CIRCLE_SHA1}'
       
 workflows:
   version: 2
@@ -78,9 +94,18 @@ workflows:
           requires:
             - test
       - aws-ecs/deploy-service-update:
+          name: Deploy Rails
           cluster-name: wyattcc-ecs-cluster
-          container-image-name-updates: 'container=wyattcc,tag=latest'
+          container-image-name-updates: 'container=wyatt-cc-rails,tag=latest'
           family: wyattcc_task
-          service-name: wyattcc-service
+          service-name: wyattcc-rails-service
           requires:
             - push_to_ecr
+      - aws-ecs/deploy-service-update:
+          name: Deploy NGINX
+          cluster-name: wyattcc-ecs-cluster
+          container-image-name-updates: 'container=wyatt-cc-nginx,tag=latest'
+          family: wyattcc_task
+          service-name: wyattcc-nginx-service
+          requires:
+            - Deploy Rails
